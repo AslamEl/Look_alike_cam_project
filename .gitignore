@@ -5,11 +5,8 @@ venv/
 
 # Downloaded Datasets (CRITICAL!)
 # These folders will be created by your scripts
-dataset_1/
-dataset_2/
-dataset_3/
-dataset_4/
-MASTER_DATASET/
+dataset/
+
 
 # Generated "Cheat Sheet" file
 *.pickle
