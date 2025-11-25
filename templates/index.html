@@ -933,13 +933,13 @@
             }
         }
 
-        /* Mode button hover effects */
+        
         .mode-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(188, 19, 254, 0.5) !important;
         }
 
-        /* Camera section styling */
+       
         #cameraMode {
             display: none;
         }
@@ -1013,10 +1013,10 @@
         <header>
             <h1>
                 <svg width="50" height="50" viewBox="0 0 100 100" fill="none" style="filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.6));">
-                    <!-- Face outline -->
+                   
                     <ellipse cx="50" cy="55" rx="28" ry="38" stroke="#667eea" stroke-width="2" fill="none"/>
                     
-                    <!-- Facial landmark points -->
+                    
                     <circle cx="38" cy="45" r="1.5" fill="#10b981"/>
                     <circle cx="62" cy="45" r="1.5" fill="#10b981"/>
                     <circle cx="50" cy="55" r="1.5" fill="#10b981"/>
@@ -1028,15 +1028,15 @@
                     <circle cx="25" cy="60" r="1.5" fill="#10b981"/>
                     <circle cx="75" cy="60" r="1.5" fill="#10b981"/>
                     
-                    <!-- Mesh lines connecting points -->
+                    
                     <path d="M 35 38 L 38 45 L 30 50 M 65 38 L 62 45 L 70 50 M 38 45 L 50 55 L 62 45 M 30 50 L 25 60 M 70 50 L 75 60 M 25 60 L 50 68 L 75 60 M 50 55 L 50 68" 
                           stroke="#667eea" stroke-width="0.8" opacity="0.6"/>
                     
-                    <!-- Scanning line effect -->
+                    
                     <line x1="22" y1="40" x2="78" y2="40" stroke="#10b981" stroke-width="1.5" opacity="0.8"/>
                     <line x1="22" y1="60" x2="78" y2="60" stroke="#10b981" stroke-width="1.5" opacity="0.8"/>
                     
-                    <!-- Corner brackets -->
+                   
                     <path d="M 20 25 L 20 18 L 27 18" stroke="#667eea" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                     <path d="M 73 18 L 80 18 L 80 25" stroke="#667eea" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                     <path d="M 80 85 L 80 92 L 73 92" stroke="#667eea" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -1048,7 +1048,7 @@
         </header>
 
         <div class="main-content">
-            <!-- Sidebar -->
+            
             <aside class="sidebar">
                 <div class="sidebar-section" style="display: none;">
                     <h3>
@@ -1104,7 +1104,7 @@
                 </div>
             </aside>
 
-            <!-- Main Content -->
+            
             <main>
                 <div class="upload-section">
                     <h4>
@@ -1224,7 +1224,7 @@
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="animation: spin 1s linear infinite;">
                             <path d="M12 2V6M12 18V22M6 12H2M22 12H18M19.07 19.07L16.24 16.24M19.07 4.93L16.24 7.76M4.93 19.07L7.76 16.24M4.93 4.93L7.76 7.76" stroke="#667eea" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>ANALYZING...</span>
+                        <span>THINKING....</span>
                     </div>
                 </div>
             </main>
@@ -1346,7 +1346,7 @@
                 canvas.style.display = 'block';
                 
                 video.onloadedmetadata = () => {
-                    // Set canvas to match video dimensions exactly
+                    
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
                     canvas.style.width = video.offsetWidth + 'px';
@@ -1378,9 +1378,9 @@
             }
 
             let highConfidenceFrames = 0;
-            const requiredFrames = 75; // Need 100 consecutive frames (about 8-10 seconds)
-            const confidenceThreshold = 85; // 85% confidence threshold
-            let isCapturing = false; // Prevent multiple captures
+            const requiredFrames = 100; 
+            const confidenceThreshold = 80; 
+            let isCapturing = false;
 
             async function detectFaces() {
                 if (!cameraStream || isCapturing) return;
@@ -1578,7 +1578,7 @@
                     showResultModal(result);
                     loadLeaderboard();
                     
-                    // Auto-close modal after 3 seconds and restart camera
+                    // Auto-close modal after 7 seconds and restart camera
                     setTimeout(() => {
                         closeModal();
                         // Reset for next capture
@@ -1593,26 +1593,26 @@
                                 startCamera();
                             }
                         }, 3000);
-                    }, 3000);
+                    }, 7000);
                 } else {
                     showErrorPopup(result.error || 'Analysis failed. Please try again.');
                     loading.style.display = 'none';
-                    // Restart camera after 2 seconds on error (only if still in camera mode)
+                    // Restart camera after 3 seconds on error (only if still in camera mode)
                     setTimeout(() => {
                         if (document.getElementById('cameraMode').style.display !== 'none') {
                             startCamera();
                         }
-                    }, 2000);
+                    }, 3000);
                 }
             } catch (error) {
                 showErrorPopup('Error: ' + error.message);
                 loading.style.display = 'none';
-                // Restart camera after 2 seconds on error (only if still in camera mode)
+                // Restart camera after 3 seconds on error (only if still in camera mode)
                 setTimeout(() => {
                     if (document.getElementById('cameraMode').style.display !== 'none') {
                         startCamera();
                     }
-                }, 2000);
+                }, 3000);
             }
         }
 
