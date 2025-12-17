@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from deepface import DeepFace
 from scipy.spatial.distance import cosine
+from sklearn.preprocessing import normalize
 import os
 import pickle
 import cv2
@@ -39,6 +40,15 @@ def load_database():
     except Exception as e:
         logger.error(f"✗ Error loading database: {e}")
         return []
+
+def normalize_database(database):
+    """Normalize all celebrity embeddings once at startup for consistent comparisons"""
+    logger.info("Normalizing celebrity embeddings...")
+    for data in database:
+        # Normalize the embedding to unit length
+        data["embedding"] = normalize([data["embedding"]])[0]
+    logger.info("✓ All embeddings normalized")
+    return database
 
 def preload_celebrity_images():
     """Load all celebrity images into memory for instant access"""
@@ -102,6 +112,7 @@ logger.info("=" * 60)
 logger.info("INITIALIZING CELEBRITY LOOK-ALIKE FINDER")
 logger.info("=" * 60)
 database = load_database()
+database = normalize_database(database)
 celebrity_images = preload_celebrity_images()
 logger.info("=" * 60)
 logger.info("✓ APPLICATION READY FOR PRODUCTION")
@@ -116,7 +127,7 @@ def index():
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
-    """Analyze uploaded image and find celebrity match with AUTO-GENDER FILTER"""
+    """Analyze uploaded image and find celebrity match with MANUAL GENDER FILTER"""
     try:
         # Get image from request
         if 'image' not in request.files:
@@ -131,36 +142,22 @@ def analyze():
         if user_image is None:
             return jsonify({'error': 'Invalid image file'}), 400
         
-        # --- STEP 1: DETECT GENDER AUTOMATICALLY ---
-        detected_gender = "All"
-        try:
-            analysis_results = DeepFace.analyze(
-                img_path=user_image,
-                actions=['gender'],
-                enforce_detection=True,
-                detector_backend='opencv'
-            )
-            # DeepFace returns a list for each face found. Take the first one.
-            detected_gender = analysis_results[0]['dominant_gender']  # Returns "Man" or "Woman"
-            logger.info(f"Detected Gender: {detected_gender}")
-            
-        except Exception as e:
-            logger.error(f"Gender detection failed: {e}")
-            # Fallback: If detection fails, search everyone
-            detected_gender = "All"
+        # --- STEP 1: GET MANUAL GENDER FILTER FROM REQUEST ---
+        filter_gender = request.form.get('filter', 'All')
+        logger.info(f"Manual Gender Filter: {filter_gender}")
 
-        # --- STEP 2: FILTER DATABASE BY DETECTED GENDER ---
+        # --- STEP 2: FILTER DATABASE BY MANUAL GENDER SELECTION ---
         known_names = []
         known_embeddings = []
         
         for data in database:
-            # Match celebrities with detected gender
-            if detected_gender == "All" or data.get("gender") == detected_gender:
+            # Match celebrities with manually selected gender
+            if filter_gender == "All" or data.get("gender") == filter_gender:
                 known_names.append(data["name"])
                 known_embeddings.append(data["embedding"])
         
         if len(known_names) == 0:
-            return jsonify({'error': f'No celebrities found for detected gender: {detected_gender}'}), 400
+            return jsonify({'error': f'No celebrities found for filter: {filter_gender}'}), 400
 
         # --- STEP 3: CREATE EMBEDDING (ArcFace) ---
         try:
@@ -168,13 +165,16 @@ def analyze():
                 img_path=user_image,
                 model_name="ArcFace",
                 enforce_detection=True,
-                detector_backend='opencv'
+                detector_backend='retinaface'
             )
             
             if not face_obj or len(face_obj) == 0:
                 return jsonify({'error': 'No face detected in the image. Please ensure your face is clearly visible.'}), 400
                 
             user_embedding = face_obj[0]["embedding"]
+            
+            # Normalize user embedding for consistent comparison with normalized database
+            user_embedding = normalize([user_embedding])[0]
             
         except ValueError as ve:
             logger.error(f"Face detection failed: {ve}")
@@ -190,14 +190,16 @@ def analyze():
         # Get the raw ArcFace score (usually 0.2 to 0.8 for matches)
         raw_similarity = 1 - distances[best_match_index]
         
-        # "Gamify" the score for display
-        # Map the range [0.30, 0.80] to [50%, 98%] for better presentation
-        if raw_similarity > 0.30:
-            display_score = min(99.0, (raw_similarity * 100) + 20)
+        # Controlled scoring with lower boost to prevent false high scores
+        # Only boost strong matches (>50% raw similarity) by a small amount (+10%)
+        if raw_similarity > 0.50:
+            display_score = min(95.0, (raw_similarity * 100) + 10)
         else:
             display_score = raw_similarity * 100
         
         similarity_percent = float(display_score)
+        
+        logger.info(f"Match: {best_match_name} | Raw: {raw_similarity*100:.1f}% | Display: {similarity_percent:.1f}%")
         
         # Add to leaderboard
         leaderboard.append({
@@ -211,7 +213,7 @@ def analyze():
             'success': True,
             'match_name': best_match_name,
             'similarity': round(similarity_percent, 1),
-            'detected_gender': detected_gender,
+            'filter_used': filter_gender,
             'meets_threshold': similarity_percent >= SIMILARITY_THRESHOLD
         }
         

@@ -29,6 +29,17 @@
             overflow-x: hidden;
         }
 
+        /* Network Mesh Background Canvas */
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -58,7 +69,8 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease-out;
+            animation: fadeInDown 0.8s ease-out forwards;
+            background: transparent !important;
         }
 
         h1 {
@@ -93,18 +105,20 @@
             from {
                 opacity: 0;
                 transform: translateY(-30px);
+                background: transparent;
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
+                background: transparent;
             }
         }
 
         .badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.4);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
             padding: 12px 30px;
             border-radius: 25px;
             font-size: 1.2rem;
@@ -121,24 +135,27 @@
             grid-template-columns: 300px 1fr;
             gap: 30px;
             margin-top: 30px;
-            animation: fadeInRight 0.8s ease-out;
+            animation: fadeInRight 0.8s ease-out forwards;
+            background: transparent !important;
         }
 
         @keyframes fadeInRight {
             from {
                 opacity: 0;
                 transform: translateX(30px);
+                background: transparent;
             }
             to {
                 opacity: 1;
                 transform: translateX(0);
+                background: transparent;
             }
         }
 
         .sidebar {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.3) !important;
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
@@ -146,7 +163,7 @@
                         0 0 40px rgba(0, 243, 255, 0.1);
             position: relative;
             overflow: hidden;
-            animation: fadeInLeft 0.8s ease-out;
+            animation: fadeInLeft 0.8s ease-out forwards;
             height: fit-content;
         }
 
@@ -165,15 +182,18 @@
             from {
                 opacity: 0;
                 transform: translateX(-30px);
+                background: transparent;
             }
             to {
                 opacity: 1;
                 transform: translateX(0);
+                background: transparent;
             }
         }
 
         .sidebar-section {
             margin-bottom: 25px;
+            background: transparent;
         }
 
         .sidebar-section h3 {
@@ -187,6 +207,7 @@
             color: #00f3ff;
             text-transform: uppercase;
             letter-spacing: 1px;
+            background: transparent;
         }
 
         .radio-group {
@@ -197,12 +218,13 @@
 
         .radio-group label {
             padding: 12px 15px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(10, 10, 15, 0.2);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .radio-group label:hover {
@@ -217,9 +239,9 @@
         }
 
         .upload-section {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.3) !important;
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
             padding: 40px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1);
@@ -251,11 +273,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            background: transparent;
         }
 
         .upload-section ul {
             list-style: none;
             line-height: 2;
+            background: transparent;
         }
 
         .upload-section li {
@@ -264,6 +288,7 @@
             align-items: center;
             gap: 10px;
             color: #e5e7eb;
+            background: transparent;
         }
 
         .upload-section strong {
@@ -332,9 +357,9 @@
         .preview-section {
             text-align: center;
             margin: 30px 0;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(10, 10, 15, 0.25) !important;
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
             padding: 30px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -426,9 +451,9 @@
 
         .leaderboard-item {
             padding: 15px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.25);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 12px;
@@ -478,9 +503,9 @@
 
         .stats-box {
             padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(10, 10, 15, 0.2);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
             border-radius: 15px;
             border: 1px solid rgba(0, 243, 255, 0.2);
             border-left: 4px solid #00f3ff;
@@ -507,12 +532,24 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(15px) saturate(150%);
-            -webkit-backdrop-filter: blur(15px) saturate(150%);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
             overflow: hidden;
             padding: 0;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Modal Network Mesh Canvas */
+        #modalNetworkCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: 20px;
         }
 
         .modal.show {
@@ -527,7 +564,7 @@
         }
 
         .modal-content {
-            background: rgba(5, 5, 10, 0.25);
+            background: rgba(5, 5, 10, 0.15);
             backdrop-filter: blur(60px) saturate(200%);
             -webkit-backdrop-filter: blur(60px) saturate(200%);
             margin: 0;
@@ -547,7 +584,7 @@
                         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             color: white;
             position: relative;
-            animation: modalSlideIn 0.4s ease-out;
+            animation: modalSlideIn 0.4s ease-out forwards;
             overflow: hidden;
         }
 
@@ -588,9 +625,9 @@
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            background: rgba(16, 185, 129, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             border: 1px solid rgba(16, 185, 129, 0.4);
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.3),
                         0 4px 15px rgba(0,0,0,0.3),
@@ -727,9 +764,9 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #00f3ff;
-            background: rgba(0, 243, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(0, 243, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
             padding: 8px 20px;
             border-radius: 10px;
             border: 1px solid rgba(0, 243, 255, 0.3);
@@ -844,8 +881,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.3);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             border: 2px solid rgba(0, 243, 255, 0.3);
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
@@ -1009,6 +1047,9 @@
     </style>
 </head>
 <body>
+    <!-- Network Mesh Background Animation -->
+    <canvas id="networkCanvas"></canvas>
+    
     <div class="container">
         <header>
             <h1>
@@ -1175,6 +1216,18 @@
                         </div>
 
                         <div id="cameraMode" style="display: none;">
+                            <!-- Gender Filter for Camera Mode -->
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px; justify-content: center;">
+                                <button onclick="setCameraGenderFilter('All')" id="cameraFilterAll" class="camera-gender-btn active" style="flex: 1; max-width: 150px; padding: 12px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: 2px solid rgba(16, 185, 129, 0.6); border-radius: 10px; cursor: pointer; font-weight: 700; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);">
+                                    All
+                                </button>
+                                <button onclick="setCameraGenderFilter('Man')" id="cameraFilterMan" class="camera-gender-btn" style="flex: 1; max-width: 150px; padding: 12px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); color: white; border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; cursor: pointer; font-weight: 700; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;">
+                                    Boys
+                                </button>
+                                <button onclick="setCameraGenderFilter('Woman')" id="cameraFilterWoman" class="camera-gender-btn" style="flex: 1; max-width: 150px; padding: 12px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); color: white; border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; cursor: pointer; font-weight: 700; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;">
+                                    Girls
+                                </button>
+                            </div>
                             <div style="position: relative; display: flex; justify-content: center; margin: 10px auto;">
                                 <video id="cameraVideo" autoplay playsinline style="max-width: 500px; border-radius: 10px; display: none;"></video>
                                 <canvas id="cameraCanvas" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); max-width: 500px; display: none; border-radius: 10px;"></canvas>
@@ -1224,7 +1277,7 @@
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="animation: spin 1s linear infinite;">
                             <path d="M12 2V6M12 18V22M6 12H2M22 12H18M19.07 19.07L16.24 16.24M19.07 4.93L16.24 7.76M4.93 19.07L7.76 16.24M4.93 4.93L7.76 7.76" stroke="#667eea" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>THINKING....</span>
+                        <span>MATCHING....</span>
                     </div>
                 </div>
             </main>
@@ -1234,6 +1287,9 @@
     <!-- Match Result Modal -->
     <div id="resultModal" class="modal">
         <div class="modal-content">
+            <!-- Network Mesh Canvas for Modal Content -->
+            <canvas id="modalNetworkCanvas"></canvas>
+            
             <span class="modal-close-x" onclick="closeModal()">&times;</span>
             
             <div class="modal-header">
@@ -1265,10 +1321,116 @@
     </div>
 
     <script>
+        // ========================================
+        // NETWORK MESH BACKGROUND ANIMATION
+        // ========================================
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Network nodes
+        const nodes = [];
+        const nodeCount = 80; // Number of floating nodes
+        const maxDistance = 150; // Maximum distance for connections
+        
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5; // Velocity X
+                this.vy = (Math.random() - 0.5) * 0.5; // Velocity Y
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? 'rgba(0, 243, 255, 0.6)' : 'rgba(188, 19, 254, 0.6)';
+            }
+            
+            update() {
+                // Move node
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                
+                // Keep within bounds
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                
+                // Add glow effect
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+        
+        // Initialize nodes
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node());
+        }
+        
+        // Draw connections between nearby nodes
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.3;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections first (behind nodes)
+            drawConnections();
+            
+            // Update and draw nodes
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        animate();
+        
+        // ========================================
+        // EXISTING JAVASCRIPT CODE
+        // ========================================
         let selectedFile = null;
         let cameraStream = null;
         let faceDetectionInterval = null;
         let modelsLoaded = false;
+        let cameraGenderFilter = 'All'; // Track gender filter for camera mode
 
         // Load face-api.js models
         async function loadFaceDetectionModels() {
@@ -1284,6 +1446,31 @@
 
         // Load models when page loads
         window.addEventListener('load', loadFaceDetectionModels);
+
+        function setCameraGenderFilter(gender) {
+            cameraGenderFilter = gender;
+            
+            // Update button styles
+            const allBtn = document.getElementById('cameraFilterAll');
+            const manBtn = document.getElementById('cameraFilterMan');
+            const womanBtn = document.getElementById('cameraFilterWoman');
+            
+            // Reset all buttons to inactive style
+            [allBtn, manBtn, womanBtn].forEach(btn => {
+                btn.style.background = 'rgba(255,255,255,0.05)';
+                btn.style.backdropFilter = 'blur(10px)';
+                btn.style.border = '2px solid rgba(255,255,255,0.2)';
+                btn.style.boxShadow = 'none';
+            });
+            
+            // Set active button style
+            const activeBtn = gender === 'All' ? allBtn : (gender === 'Man' ? manBtn : womanBtn);
+            activeBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            activeBtn.style.border = '2px solid rgba(16, 185, 129, 0.6)';
+            activeBtn.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.5)';
+            
+            console.log('Camera gender filter set to:', gender);
+        }
 
         function switchToUpload() {
             document.getElementById('uploadMode').style.display = 'block';
@@ -1378,7 +1565,7 @@
             }
 
             let highConfidenceFrames = 0;
-            const requiredFrames = 100; 
+            const requiredFrames = 30; 
             const confidenceThreshold = 80; 
             let isCapturing = false;
 
@@ -1563,8 +1750,8 @@
             const formData = new FormData();
             formData.append('image', selectedFile);
             
-            const filterMode = document.querySelector('input[name="filter"]:checked').value;
-            formData.append('filter', filterMode);
+            // Use camera gender filter instead of sidebar radio buttons
+            formData.append('filter', cameraGenderFilter);
 
             try {
                 const response = await fetch('/analyze', {
@@ -1593,7 +1780,7 @@
                                 startCamera();
                             }
                         }, 3000);
-                    }, 7000);
+                    }, 20000);
                 } else {
                     showErrorPopup(result.error || 'Analysis failed. Please try again.');
                     loading.style.display = 'none';
@@ -1739,10 +1926,133 @@
             modalCelebName.textContent = result.match_name.toUpperCase();
 
             modal.classList.add('show');
+            
+            // Start modal network animation
+            startModalNetworkAnimation();
         }
 
         function closeModal() {
             document.getElementById('resultModal').classList.remove('show');
+            // Stop modal network animation
+            stopModalNetworkAnimation();
+        }
+
+        // ========================================
+        // MODAL NETWORK MESH ANIMATION
+        // ========================================
+        let modalAnimationId = null;
+        let modalNodes = [];
+        
+        function startModalNetworkAnimation() {
+            const modalCanvas = document.getElementById('modalNetworkCanvas');
+            if (!modalCanvas) return;
+            
+            const modalCtx = modalCanvas.getContext('2d');
+            
+            // Set canvas size to modal size
+            function resizeModalCanvas() {
+                const modal = document.getElementById('resultModal');
+                modalCanvas.width = modal.offsetWidth;
+                modalCanvas.height = modal.offsetHeight;
+            }
+            resizeModalCanvas();
+            
+            // Create modal nodes
+            modalNodes = [];
+            const modalNodeCount = 60;
+            const modalMaxDistance = 130;
+            
+            class ModalNode {
+                constructor() {
+                    this.x = Math.random() * modalCanvas.width;
+                    this.y = Math.random() * modalCanvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.radius = Math.random() * 1.2 + 0.6;
+                    this.color = Math.random() > 0.5 ? 'rgba(0, 243, 255, 0.8)' : 'rgba(188, 19, 254, 0.8)';
+                }
+                
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    if (this.x < 0 || this.x > modalCanvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > modalCanvas.height) this.vy *= -1;
+                    
+                    this.x = Math.max(0, Math.min(modalCanvas.width, this.x));
+                    this.y = Math.max(0, Math.min(modalCanvas.height, this.y));
+                }
+                
+                draw() {
+                    modalCtx.beginPath();
+                    modalCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    modalCtx.fillStyle = this.color;
+                    modalCtx.fill();
+                    
+                    modalCtx.shadowBlur = 15;
+                    modalCtx.shadowColor = this.color;
+                    modalCtx.fill();
+                    modalCtx.shadowBlur = 0;
+                }
+            }
+            
+            // Initialize modal nodes
+            for (let i = 0; i < modalNodeCount; i++) {
+                modalNodes.push(new ModalNode());
+            }
+            
+            // Draw connections
+            function drawModalConnections() {
+                for (let i = 0; i < modalNodes.length; i++) {
+                    for (let j = i + 1; j < modalNodes.length; j++) {
+                        const dx = modalNodes[i].x - modalNodes[j].x;
+                        const dy = modalNodes[i].y - modalNodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < modalMaxDistance) {
+                            const opacity = (1 - distance / modalMaxDistance) * 0.4;
+                            const isCyan = modalNodes[i].color.includes('0, 243, 255');
+                            const color = isCyan ? `rgba(0, 243, 255, ${opacity})` : `rgba(188, 19, 254, ${opacity})`;
+                            modalCtx.beginPath();
+                            modalCtx.strokeStyle = color;
+                            modalCtx.lineWidth = 1;
+                            modalCtx.moveTo(modalNodes[i].x, modalNodes[i].y);
+                            modalCtx.lineTo(modalNodes[j].x, modalNodes[j].y);
+                            modalCtx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            // Animation loop
+            function animateModal() {
+                modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+                
+                drawModalConnections();
+                
+                modalNodes.forEach(node => {
+                    node.update();
+                    node.draw();
+                });
+                
+                modalAnimationId = requestAnimationFrame(animateModal);
+            }
+            
+            animateModal();
+        }
+        
+        function stopModalNetworkAnimation() {
+            if (modalAnimationId) {
+                cancelAnimationFrame(modalAnimationId);
+                modalAnimationId = null;
+            }
+            modalNodes = [];
+            
+            const modalCanvas = document.getElementById('modalNetworkCanvas');
+            if (modalCanvas) {
+                const modalCtx = modalCanvas.getContext('2d');
+                modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+            }
         }
 
         async function loadLeaderboard() {
